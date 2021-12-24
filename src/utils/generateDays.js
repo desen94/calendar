@@ -1,8 +1,10 @@
 import dayjs from 'dayjs'
+import customParseFormat from 'dayjs/plugin/customParseFormat'
 import 'dayjs/locale/ru'
 import {CALENDAR_PARAMS} from '../shared/constants/calendarParams'
 
 dayjs.locale('ru')
+dayjs.extend(customParseFormat)
 
 export function getMonth(date = dayjs()) {
     const year = date.year()

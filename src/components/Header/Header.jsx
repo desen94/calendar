@@ -7,7 +7,7 @@ import {Search} from './components/Search'
 import s from './Header.module.scss'
 
 export const Header = () => {
-    const {setShowQuickEventModal,showQuickEventModal} = useContext(GlobalContext)
+    const {setShowQuickEventModal, showQuickEventModal} = useContext(GlobalContext)
     
     const handleCreateEvent = (e) => {
         e.preventDefault()

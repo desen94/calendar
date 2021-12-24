@@ -2,7 +2,7 @@ import {createContext} from 'react'
 
 export const GlobalContext = createContext({
     watchingMonth: '',
-    setWatchingMonth: (index) => {},
+    setWatchingMonth: () => {},
     showEventModal: false,
     setShowEventModal: () => {},
     daySelected: 0,

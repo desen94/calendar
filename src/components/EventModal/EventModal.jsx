@@ -27,8 +27,6 @@ export const EventModal = () => {
         setMembers(eventSelected?.members || '')
     }, [daySelected, eventSelected])
     
-    // TODO: где-то сидит бага и не сбрасываются данные от ивента при клике по пустому дню
-    
     const handleCloseEventModal = (e) => {
         e.preventDefault()
         setShowEventModal(false)
@@ -61,71 +59,80 @@ export const EventModal = () => {
     const stylesForm = cn(s.form, s[modalPosition.decoratorVertical], s[modalPosition.decoratorHorizontal])
     
     return (
-        <div className={s.modal} style={modalPosition.modal}>
-            <form className={stylesForm}>
-                <Button
-                    appearance={BUTTON_APPEARANCE.CANCEL}
-                    onClick={handleCloseEventModal}
-                >
-                    <CrossIcon/>
-                </Button>
-                <div className={s.inputs}>
-                    <Input
-                        value={title}
-                        type="text"
-                        name="title"
-                        classNameReadonly={s.title}
-                        placeholder="Событие"
-                        readonly={!isNewEvent}
-                        onChange={(e) => setTitle(e.target.value)}
-                        handleRemove={() => setTitle('')}
-                    />
-                    <Input
-                        value={date || daySelected}
-                        type="text"
-                        name="date"
-                        classNameReadonly={s.date}
-                        placeholder="День, месяц, год"
-                        readonly={!isNewEvent}
-                        onChange={(e) => setDate(e.target.value)}
-                    />
-                    <Input
-                        value={members}
-                        type="text"
-                        name="members"
-                        classNameReadonly={s.members}
-                        placeholder="Имена участников"
-                        readonly={!isNewEvent}
-                        onChange={(e) => setMembers(e.target.value)}
-                        handleRemove={() => setMembers('')}
-                    />
-                </div>
-                <textarea
-                    value={description}
-                    className={s.description}
-                    name="description"
-                    id="desc"
-                    placeholder="Описание"
-                    onChange={(e) => setDescription(e.target.value)}
-                />
-                <div className={s.buttons}>
+        <div
+            className={s.modalWrapper}
+            onClick={handleCloseEventModal}
+        >
+            <div
+                className={s.modal}
+                style={modalPosition.modal}
+                onClick={e => e.stopPropagation()}
+            >
+                <form className={stylesForm}>
                     <Button
-                        type="submit"
-                        appearance={BUTTON_APPEARANCE.EXTRA_BUTTON}
-                        onClick={handleSubmit}
+                        appearance={BUTTON_APPEARANCE.CANCEL}
+                        onClick={handleCloseEventModal}
                     >
-                        Готово
+                        <CrossIcon/>
                     </Button>
-                    <Button
-                        type="button"
-                        disabled={isNewEvent}
-                        appearance={BUTTON_APPEARANCE.EXTRA_BUTTON}
-                        onClick={handleDeleteEvent}
-                    >
-                        Удалить
-                    </Button>
-                </div>
-            </form>
+                    <div className={s.inputs}>
+                        <Input
+                            value={title}
+                            type="text"
+                            name="title"
+                            classNameReadonly={s.title}
+                            placeholder="Событие"
+                            readonly={!isNewEvent}
+                            onChange={(e) => setTitle(e.target.value)}
+                            handleReset={() => setTitle('')}
+                        />
+                        <Input
+                            value={date || daySelected}
+                            type="text"
+                            name="date"
+                            classNameReadonly={s.date}
+                            placeholder="День, месяц, год"
+                            readonly={!isNewEvent}
+                            onChange={(e) => setDate(e.target.value)}
+                        />
+                        <Input
+                            value={members}
+                            type="text"
+                            name="members"
+                            classNameReadonly={s.members}
+                            placeholder="Имена участников"
+                            readonly={!isNewEvent}
+                            onChange={(e) => setMembers(e.target.value)}
+                            handleReset={() => setMembers('')}
+                        />
+                    </div>
+                    <textarea
+                        value={description}
+                        className={s.description}
+                        name="description"
+                        id="desc"
+                        placeholder="Описание"
+                        onChange={(e) => setDescription(e.target.value)}
+                    />
+                    <div className={s.buttons}>
+                        <Button
+                            type="submit"
+                            appearance={BUTTON_APPEARANCE.EXTRA_BUTTON}
+                            onClick={handleSubmit}
+                        >
+                            Готово
+                        </Button>
+                        <Button
+                            type="button"
+                            disabled={isNewEvent}
+                            appearance={BUTTON_APPEARANCE.EXTRA_BUTTON}
+                            onClick={handleDeleteEvent}
+                        >
+                            Удалить
+                        </Button>
+                    </div>
+                </form>
+            </div>
         </div>
     )
 }

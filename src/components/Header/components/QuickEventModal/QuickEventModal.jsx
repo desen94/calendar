@@ -1,11 +1,9 @@
-import cn from 'classnames'
 import dayjs from 'dayjs'
-import {useContext, useEffect, useState} from 'react'
-import {GlobalContext} from '../../../../context/GlobalContext'
-import {DATE_FORMAT} from '../../../../shared/constants'
+import {useContext, useState} from 'react'
 import {ReactComponent as CrossIcon} from '../../../../assets/icons/cross.svg'
+import {GlobalContext} from '../../../../context/GlobalContext'
 import {Button, Input} from '../../../../shared/components'
-import {BUTTON_APPEARANCE} from '../../../../shared/constants'
+import {BUTTON_APPEARANCE, DATE_FORMAT} from '../../../../shared/constants'
 import s from './QuickEventModal.module.scss'
 
 export const QuickEventModal = () => {
@@ -14,12 +12,8 @@ export const QuickEventModal = () => {
     
     const [eventData, setEventData] = useState('')
     
-    useEffect(() => {
-    
-    }, [])
-    
     const handleCloseEventModal = (e) => {
-        e?.preventDefault()
+        e.preventDefault()
         setShowQuickEventModal(false)
     }
     
@@ -39,17 +33,13 @@ export const QuickEventModal = () => {
         handleCloseEventModal(e)
     }
     
-    const handleEnter = (e) => {
-        e.key === 'Enter' && handleSubmit()
-    }
+    const handleEnter = (e) => e.key === 'Enter' && handleSubmit()
     
     const placeholder = dayjs().format(DATE_FORMAT.DD_MM_YYYY) + ', заголовок, участники'
     
-    const stylesForm = cn(s.form)
-    
     return (
         <div className={s.modal}>
-            <form className={stylesForm}>
+            <form className={s.form}>
                 <Button
                     appearance={BUTTON_APPEARANCE.CANCEL}
                     onClick={handleCloseEventModal}
@@ -63,7 +53,7 @@ export const QuickEventModal = () => {
                         name="event-data"
                         placeholder={placeholder}
                         onChange={(e) => setEventData(e.target.value)}
-                        handleRemove={() => setEventData('')}
+                        handleReset={() => setEventData('')}
                         onKeyDown={(e) => handleEnter(e)}
                     />
                 </div>

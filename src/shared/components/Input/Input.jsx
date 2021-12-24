@@ -3,7 +3,7 @@ import {ReactComponent as ResetIcon} from '../../../assets/icons/cross.svg'
 import {Button} from '../Button'
 import s from './Input.module.scss'
 
-export const Input = ({classNameReadonly, value, type, placeholder, required, readonly, handleRemove, ...props}) => {
+export const Input = ({classNameReadonly, value, type, placeholder, required, readonly, handleReset, ...props}) => {
     
     const handleEnter = (event) => {
         if (event.key === 'Enter') {
@@ -12,10 +12,10 @@ export const Input = ({classNameReadonly, value, type, placeholder, required, re
         }
     }
     
-    const resetButton = !!value && !!handleRemove &&
+    const resetButton = !!value && !!handleReset &&
         <Button type="reset"
                 appearance={BUTTON_APPEARANCE.RESET}
-                onClick={handleRemove}
+                onClick={handleReset}
         >
             <ResetIcon/>
         </Button>

@@ -8,9 +8,9 @@
     "stylelint-scss"
   ],
   "rules": {
+    "color-hex-case": "upper",
     "indentation": [
       "tab"
-    ],
-    "color-hex-case": "upper"
+    ]
   }
 }
