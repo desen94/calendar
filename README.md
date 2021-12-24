@@ -5,7 +5,7 @@ Test task for internship at iq-dev.
 
 ## Deploy
 
-Open [netlify link](http://localhost:3000) to view it.
+Open [netlify link](https://calendarev.netlify.app/) to view it.
 
 ## Available Scripts
 
