@@ -76,7 +76,7 @@ export const EventModal = () => {
                         name="title"
                         className={s.title}
                         placeholder="Событие"
-                        readonly={!isNewEvent}
+                        classNameReadOnly={!isNewEvent}
                         onChange={(e) => setTitle(e.target.value)}
                         handleRemove={() => setTitle('')}
                     />
@@ -86,7 +86,7 @@ export const EventModal = () => {
                         name="date"
                         className={s.date}
                         placeholder="День, месяц, год"
-                        readonly={!isNewEvent}
+                        classNameReadOnly={!isNewEvent}
                         onChange={(e) => setDate(e.target.value)}
                     />
                     <Input
@@ -95,7 +95,7 @@ export const EventModal = () => {
                         name="members"
                         className={s.members}
                         placeholder="Имена участников"
-                        readonly={!isNewEvent}
+                        classNameReadOnly={!isNewEvent}
                         onChange={(e) => setMembers(e.target.value)}
                         handleRemove={() => setMembers('')}
                     />
