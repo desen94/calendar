@@ -3,7 +3,7 @@ import {ReactComponent as ResetIcon} from '../../../assets/icons/cross.svg'
 import {Button} from '../Button'
 import s from './Input.module.scss'
 
-export const Input = ({className, value, type, placeholder, required, classNameReadOnly, handleRemove, ...props}) => {
+export const Input = ({classNameReadonly, value, type, placeholder, required, readonly, handleRemove, ...props}) => {
     
     const handleEnter = (event) => {
         if (event.key === 'Enter') {
@@ -22,7 +22,7 @@ export const Input = ({className, value, type, placeholder, required, classNameR
     
     return (
         <div className={s.wrapper}>
-            {classNameReadOnly ? <p className={className}>{value}</p> :
+            {readonly ? <p className={classNameReadonly}>{value}</p> :
              (
                  <>
                      <input

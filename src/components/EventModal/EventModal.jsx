@@ -74,9 +74,9 @@ export const EventModal = () => {
                         value={title}
                         type="text"
                         name="title"
-                        className={s.title}
+                        classNameReadonly={s.title}
                         placeholder="Событие"
-                        classNameReadOnly={!isNewEvent}
+                        readonly={!isNewEvent}
                         onChange={(e) => setTitle(e.target.value)}
                         handleRemove={() => setTitle('')}
                     />
@@ -84,18 +84,18 @@ export const EventModal = () => {
                         value={date || daySelected}
                         type="text"
                         name="date"
-                        className={s.date}
+                        classNameReadonly={s.date}
                         placeholder="День, месяц, год"
-                        classNameReadOnly={!isNewEvent}
+                        readonly={!isNewEvent}
                         onChange={(e) => setDate(e.target.value)}
                     />
                     <Input
                         value={members}
                         type="text"
                         name="members"
-                        className={s.members}
+                        classNameReadonly={s.members}
                         placeholder="Имена участников"
-                        classNameReadOnly={!isNewEvent}
+                        readonly={!isNewEvent}
                         onChange={(e) => setMembers(e.target.value)}
                         handleRemove={() => setMembers('')}
                     />
