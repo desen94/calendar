@@ -13,12 +13,12 @@ export const Input = ({className, value, type, placeholder, required, readonly, 
     }
     
     const resetButton = !!value && !!handleRemove &&
-                                                        <Button type="reset"
-                                                                appearance={BUTTON_APPEARANCE.RESET}
-                                                                onClick={handleRemove}
-                                                        >
-                                                            <ResetIcon/>
-                                                        </Button>
+        <Button type="reset"
+                appearance={BUTTON_APPEARANCE.RESET}
+                onClick={handleRemove}
+        >
+            <ResetIcon/>
+        </Button>
     
     return (
         <div className={s.wrapper}>
