@@ -20,7 +20,7 @@ export const Header = () => {
                 <div className={s.controls}>
                     <Button
                         appearance={BUTTON_APPEARANCE.BUTTON}
-                        onClick={(e) => handleCreateEvent(e)}
+                        onClick={handleCreateEvent}
                     >
                         Добавить
                     </Button>
