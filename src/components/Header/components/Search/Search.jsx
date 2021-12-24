@@ -1,8 +1,8 @@
 import dayjs from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 import {useContext, useState} from 'react'
-import {GlobalContext} from '../../../../context/GlobalContext'
 import {ReactComponent as SearchIcon} from '../../../../assets/icons/search.svg'
+import {GlobalContext} from '../../../../context/GlobalContext'
 import {Input} from '../../../../shared/components'
 import {DATE_FORMAT} from '../../../../shared/constants'
 import s from './Search.module.scss'
@@ -33,6 +33,20 @@ export const Search = ({value = ''}) => {
     
     const handleRemove = () => setSearchParams('')
     
+    const filteredEventListLayout = filteredEvents.map(event => {
+        const {date, id, title} = event
+        return (
+            <div
+                key={id}
+                className={s.event}
+                onClick={() => handleClickOnSearchEvent(event)}
+            >
+                <p className={s.title}>{title}</p>
+                <p className={s.date}>{date}</p>
+            </div>
+        )
+    })
+    
     return (
         <div className={s.wrapper}>
             <form className={s.search}>
@@ -47,18 +61,7 @@ export const Search = ({value = ''}) => {
             {!!searchParams && (
                 <div className={s.resultsWrapper}>
                     <div className={s.results}>
-                        {!!searchParams && filteredEvents.map(event => {
-                            return (
-                                <div
-                                    key={event.id}
-                                    className={s.event}
-                                    onClick={() => handleClickOnSearchEvent(event)}
-                                >
-                                    <p className={s.title}>{event.title}</p>
-                                    <p className={s.date}>{event.date}</p>
-                                </div>
-                            )
-                        })}
+                        {!!searchParams && filteredEventListLayout}
                         {!filteredEvents.length && (<p className={s.notFounded}>Ничего не найдено... 🙄</p>)}
                     </div>
                 </div>
