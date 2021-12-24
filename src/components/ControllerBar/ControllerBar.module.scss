@@ -1,0 +1,30 @@
+.month {
+	align-self: center;
+
+	text-transform: capitalize;
+
+	font-size: 1.8rem;
+	line-height: 1.8rem;
+}
+
+.bar {
+	display: flex;
+	align-items: center;
+	column-gap: 10px;
+
+	padding: 13.5px 0;
+}
+
+.controls {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	width: 220px;
+}
+
+.arrow_left {
+	svg {
+		transform: rotate(180deg);
+	}
+}

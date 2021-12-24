@@ -1,0 +1,101 @@
+:root {
+	--font-family: "Roboto", sans-serif;
+	--light-100: #FFFFFF;
+	--neutral-100: #F4F4F4;
+	--neutral-200: #CFCFCF;
+	--blue-100: #C2E4FE;
+	--blue-200: #27A1FF;
+	--blue-300: #0271C7;
+	--red-100: #E94E4E;
+	--dark-100: #6B6B6B;
+	--dark-200: #292929;
+	--dark-300: #000000;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	
+	border: 0;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+aside,
+nav,
+footer,
+header,
+section {
+	display: block;
+}
+
+html {
+	font-size: 10px;
+	scroll-behavior: smooth;
+}
+
+html,
+body {
+	height: 100%;
+}
+
+body {
+	color: var(--dark-200);
+
+	font-family: var(--font-family);
+	font-size: 1.6rem;
+	line-height: 1;
+	accent-color: var(--blue-200);
+	
+	text-rendering: optimizeLegibility;
+	text-size-adjust: 100%;
+}
+
+input,
+button,
+textarea {
+	font-family: var(--font-family);
+	font-size: inherit;
+}
+
+input::-ms-clear {
+	display: none;
+}
+
+button {
+	cursor: pointer;
+
+	background-color: inherit;
+	background-color: transparent;
+}
+
+button::-moz-focus-inner {
+	padding: 0;
+
+	border: 0;
+}
+
+a {
+	text-decoration: none;
+
+	color: inherit;
+}
+
+a:hover,
+a:visited,
+a:focus,
+a:active {
+	text-decoration: none;
+}
+
+ul li {
+	list-style: none;
+}
+
+img {
+	vertical-align: top;
+}

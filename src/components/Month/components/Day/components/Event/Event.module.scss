@@ -1,0 +1,14 @@
+.event {
+	margin: 8px 0;
+
+	cursor: pointer;
+	> p {
+		&:not(:last-child) {
+			margin-bottom: 8px;
+		}
+	}
+}
+
+.title {
+	color: var(--dark-200);
+}

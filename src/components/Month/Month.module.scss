@@ -1,0 +1,11 @@
+.month {
+	display: grid;
+	flex: 1 1;
+	grid-template-rows: repeat(5, 1fr);
+	grid-template-columns: repeat(7, 1fr);
+	grid-gap: 1px;
+
+	padding: 1px;
+
+	background-color: var(--dark-200);
+}

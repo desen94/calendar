@@ -1,0 +1,99 @@
+.modal {
+	position: absolute;
+	z-index: 5;
+	top: calc(100% + 12px);
+	left: 0;
+
+	display: flex;
+
+	padding: 0 12px;
+}
+
+.form {
+	display: flex;
+	flex-direction: column;
+
+	width: 300px;
+	padding: 12px;
+
+	color: var(--dark-200);
+	background-color: var(--light-100);
+	filter: drop-shadow(0px 0px 7px rgba(0, 0, 0, 0.25));
+	
+	& > *:not(:last-child)  {
+		margin-bottom: 10px;
+	}
+	& > *:first-child  {
+		margin-bottom: 0;
+	}
+	
+	&:before {
+		position: absolute;
+		z-index: 1;
+		top: -15px;
+		left: 35px;
+
+		display: block;
+
+		width: 11px;
+		height: 22px;
+
+		content: '';
+		transform: rotate(90deg);
+
+		background: url("data:image/svg+xml,%3Csvg width='11' height='22' viewBox='0 0 11 22' fill='white' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 11L10.1613 0.607697L10.1613 21.3923L0 11Z'/%3E%3C/svg%3E") no-repeat;
+		filter: drop-shadow(-6px 0px 4px rgba(0, 0, 0, 0.05));
+	}
+}
+
+.description {
+	width: 100%;
+	height: 125px;
+	margin-top: 8px;
+	padding: 6px 12px;
+
+	resize: none;
+
+	border: 1px solid var(--neutral-200);
+	border-radius: 4px;
+	box-shadow: inset 0 0 1px 2px rgba(0, 0, 0, 0.25);
+
+	font-size: 1.4rem;
+	font-weight: 300;
+	line-height: 1.6rem;
+	
+	&:focus {
+		border: 1px solid var(--blue-200);
+		outline: none;
+	}
+}
+
+.buttons {
+	display: flex;
+	column-gap: 20px;
+}
+
+.title {
+	font-size: 1.8rem;
+	line-height: 2.1rem;
+}
+
+.date {
+	font-size: 1.4rem;
+	font-weight: 300;
+	line-height: 1.6rem;
+}
+
+.members {
+	font-size: 1.4rem;
+	font-weight: 300;
+	line-height: 1.6rem;
+	
+	&:before {
+		display: block;
+
+		content: 'Участники:';
+
+		color: var(--dark-100);
+	}
+}
