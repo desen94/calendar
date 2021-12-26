@@ -1,9 +1,10 @@
 import cn from 'classnames'
-import {useContext, useEffect, useState} from 'react'
-import {GlobalContext} from '../../context/GlobalContext'
+import {useContext} from 'react'
+import {Controller, useForm} from 'react-hook-form'
 import {ReactComponent as CrossIcon} from '../../assets/icons/cross.svg'
+import {GlobalContext} from '../../context/GlobalContext'
 import {Button, Input} from '../../shared/components'
-import {BUTTON_APPEARANCE} from '../../shared/constants'
+import {BUTTON_APPEARANCE, PATTERNS} from '../../shared/constants'
 import s from './EventModal.module.scss'
 
 export const EventModal = () => {
@@ -15,20 +16,8 @@ export const EventModal = () => {
               modalPosition
           } = useContext(GlobalContext)
     
-    const [title, setTitle] = useState(eventSelected?.title || '')
-    const [date, setDate] = useState(eventSelected?.date || '')
-    const [description, setDescription] = useState(eventSelected?.description || '')
-    const [members, setMembers] = useState(eventSelected?.members || '')
-    
-    useEffect(() => {
-        setTitle(eventSelected?.title || '')
-        setDate(eventSelected?.date || '')
-        setDescription(eventSelected?.description || '')
-        setMembers(eventSelected?.members || '')
-    }, [daySelected, eventSelected])
-    
     const handleCloseEventModal = (e) => {
-        e.preventDefault()
+        e?.preventDefault()
         setShowEventModal(false)
     }
     
@@ -39,11 +28,21 @@ export const EventModal = () => {
     
     const isNewEvent = !eventSelected
     
-    const handleSubmit = (e) => {
+    const {register, handleSubmit, setValue, control} = useForm({
+        mode: 'onChange',
+        defaultValues: {
+            title: eventSelected?.title ?? '',
+            date: eventSelected?.date ?? daySelected,
+            members: eventSelected?.members ?? '',
+            description: eventSelected?.description ?? ''
+        }
+    })
+    
+    const onSubmit = ({title, date, members, description}) => {
         const event = {
             id: eventSelected?.id || Date.now(),
             title,
-            date: daySelected,
+            date,
             members,
             description
         }
@@ -53,7 +52,8 @@ export const EventModal = () => {
         } else {
             dispatchCallEvent({type: 'push', payload: event})
         }
-        handleCloseEventModal(e)
+        
+        handleCloseEventModal()
     }
     
     const stylesForm = cn(s.form, s[modalPosition.decoratorVertical], s[modalPosition.decoratorHorizontal])
@@ -68,7 +68,7 @@ export const EventModal = () => {
                 style={modalPosition.modal}
                 onClick={e => e.stopPropagation()}
             >
-                <form className={stylesForm}>
+                <form className={stylesForm} onSubmit={handleSubmit(onSubmit)}>
                     <Button
                         appearance={BUTTON_APPEARANCE.CANCEL}
                         onClick={handleCloseEventModal}
@@ -76,49 +76,73 @@ export const EventModal = () => {
                         <CrossIcon/>
                     </Button>
                     <div className={s.inputs}>
-                        <Input
-                            value={title}
-                            type="text"
+                        <Controller
                             name="title"
-                            classNameReadonly={s.title}
-                            placeholder="Событие"
-                            readonly={!isNewEvent}
-                            onChange={(e) => setTitle(e.target.value)}
-                            handleReset={() => setTitle('')}
+                            control={control}
+                            rules={{
+                                required: 'Обязательно для заполнения',
+                                pattern: {
+                                    value: PATTERNS.NOT_EMPTY_STRING,
+                                    message: 'Укажите корректно название события'
+                                }
+                            }}
+                            render={({field, fieldState: {invalid, error}}) => <Input
+                                placeholder="Событие"
+                                label="Заголовок события"
+                                readonly={!isNewEvent}
+                                readonlyStyles={s.title}
+                                invalid={invalid}
+                                error={error}
+                                handleReset={() => setValue('title', '')}
+                                {...field}
+                            />}
                         />
-                        <Input
-                            value={date || daySelected}
-                            type="text"
+                        <Controller
                             name="date"
-                            classNameReadonly={s.date}
-                            placeholder="День, месяц, год"
-                            readonly={!isNewEvent}
-                            onChange={(e) => setDate(e.target.value)}
+                            control={control}
+                            label="Дата события"
+                            rules={{
+                                required: 'Обязательно для заполнения',
+                                pattern: {
+                                    value: PATTERNS.DD_MM_YYYY,
+                                    message: 'Формат даты должен быть "ДД.ММ.ГГГГ"'
+                                }
+                            }}
+                            render={({field, fieldState: {invalid, error}}) => <Input
+                                placeholder="День, месяц, год"
+                                label="Дата события"
+                                readonly={!isNewEvent}
+                                readonlyStyles={s.date}
+                                invalid={invalid}
+                                error={error}
+                                {...field}
+                            />}
                         />
-                        <Input
-                            value={members}
-                            type="text"
+                        <Controller
                             name="members"
-                            classNameReadonly={s.members}
-                            placeholder="Имена участников"
-                            readonly={!isNewEvent}
-                            onChange={(e) => setMembers(e.target.value)}
-                            handleReset={() => setMembers('')}
+                            control={control}
+                            render={({field}) => <Input placeholder="Участники"
+                                                        label="Участники события"
+                                                        readonly={!isNewEvent}
+                                                        readonlyStyles={s.members}
+                                                        handleReset={() => setValue('members', '')}
+                                                        {...field}
+                            />}
                         />
                     </div>
+                    
+                    <label htmlFor="description" className={s.visuallyHidden}>Описание</label>
                     <textarea
-                        value={description}
                         className={s.description}
-                        name="description"
-                        id="desc"
                         placeholder="Описание"
-                        onChange={(e) => setDescription(e.target.value)}
+                        {...register('description')}
                     />
+                    
                     <div className={s.buttons}>
                         <Button
                             type="submit"
                             appearance={BUTTON_APPEARANCE.EXTRA_BUTTON}
-                            onClick={handleSubmit}
+                            onClick={handleSubmit(onSubmit)}
                         >
                             Готово
                         </Button>
