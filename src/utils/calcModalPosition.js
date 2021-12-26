@@ -4,8 +4,24 @@ export const CalcModalPosition = (e, rowIndex, columnIndex) => {
     const MODAL_HEIGHT = 327
     const MODAL_TOTAL_WIDTH = MODAL_WIDTH + DECORATOR_WIDTH
     
-    // TODO: MODAL_PARAMS в шаред и инлайн стили применить в компоненте
-    // TODO: добавить случай клика по ивенту и брать оффсеты у родителя
+    // TODO: MODAL_PARAMS в шаред и инлайн стили применить в компоненте...
+    
+    let offsets = {}
+    
+    const getOffsets = (element) => {
+        if (element.className.includes('cell')) {
+            offsets = {
+                offsetTop: element.offsetTop,
+                offsetLeft: element.offsetLeft,
+                offsetWidth: element.offsetWidth,
+                offsetHeight: element.offsetHeight,
+            }
+        } else {
+            getOffsets(element.parentNode)
+        }
+    }
+    
+    getOffsets(e.target)
     
     const modalPosition = {
         modal: {},
@@ -14,17 +30,17 @@ export const CalcModalPosition = (e, rowIndex, columnIndex) => {
     }
     
     const decoratorTopLeft = {
-        top: e.target.offsetTop + 'px',
-        left: e.target.offsetLeft + e.target.offsetWidth + DECORATOR_WIDTH + 'px'
+        top: offsets.offsetTop + 'px',
+        left: offsets.offsetLeft + offsets.offsetWidth + DECORATOR_WIDTH + 'px'
     }
     const decoratorBottomLeft = {
-        top: e.target.offsetTop + e.target.offsetHeight - MODAL_HEIGHT + 'px',
-        left: e.target.offsetLeft + e.target.offsetWidth + DECORATOR_WIDTH + 'px'
+        top: offsets.offsetTop + offsets.offsetHeight - MODAL_HEIGHT + 'px',
+        left: offsets.offsetLeft + offsets.offsetWidth + DECORATOR_WIDTH + 'px'
     }
-    const decoratorTopRight = {top: e.target.offsetTop + 'px', left: e.target.offsetLeft - MODAL_TOTAL_WIDTH + 'px'}
+    const decoratorTopRight = {top: offsets.offsetTop + 'px', left: offsets.offsetLeft - MODAL_TOTAL_WIDTH + 'px'}
     const decoratorBottomRight = {
-        top: e.target.offsetTop + e.target.offsetHeight - MODAL_HEIGHT + 'px',
-        left: e.target.offsetLeft - MODAL_TOTAL_WIDTH + 'px'
+        top: offsets.offsetTop + offsets.offsetHeight - MODAL_HEIGHT + 'px',
+        left: offsets.offsetLeft - MODAL_TOTAL_WIDTH + 'px'
     }
     
     if (columnIndex <= 3 && rowIndex <= 2) {
