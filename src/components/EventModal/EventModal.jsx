@@ -16,6 +16,16 @@ export const EventModal = () => {
               modalPosition
           } = useContext(GlobalContext)
     
+    const {register, handleSubmit, setValue, control} = useForm({
+        mode: 'onChange',
+        defaultValues: {
+            title: eventSelected?.title ?? '',
+            date: eventSelected?.date ?? daySelected,
+            members: eventSelected?.members ?? '',
+            description: eventSelected?.description ?? ''
+        }
+    })
+    
     const handleCloseEventModal = (e) => {
         e?.preventDefault()
         setShowEventModal(false)
@@ -27,16 +37,6 @@ export const EventModal = () => {
     }
     
     const isNewEvent = !eventSelected
-    
-    const {register, handleSubmit, setValue, control} = useForm({
-        mode: 'onChange',
-        defaultValues: {
-            title: eventSelected?.title ?? '',
-            date: eventSelected?.date ?? daySelected,
-            members: eventSelected?.members ?? '',
-            description: eventSelected?.description ?? ''
-        }
-    })
     
     const onSubmit = ({title, date, members, description}) => {
         const event = {

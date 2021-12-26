@@ -39,16 +39,20 @@
 
 .error {
 	position: absolute;
-	top: 100%;
+	bottom: 100%;
 	left: 5px;
+
 	color: var(--red-100);
+
 	font-size: 1rem;
 	line-height: 1rem;
 }
 
 .visuallyHidden {
 	position: absolute;
+
 	clip: rect(0 0 0 0);
+
 	width: 1px;
 	height: 1px;
 	margin: -1px;
