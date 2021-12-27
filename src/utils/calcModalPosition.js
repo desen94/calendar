@@ -6,22 +6,20 @@ export const CalcModalPosition = (e, rowIndex, columnIndex) => {
     
     // TODO: MODAL_PARAMS в шаред и инлайн стили применить в компоненте...
     
-    let offsets = {}
-    
     const getOffsets = (element) => {
         if (element.className.includes('cell')) {
-            offsets = {
+            return {
                 offsetTop: element.offsetTop,
                 offsetLeft: element.offsetLeft,
                 offsetWidth: element.offsetWidth,
                 offsetHeight: element.offsetHeight,
             }
         } else {
-            getOffsets(element.parentNode)
+           return getOffsets(element.parentNode)
         }
     }
     
-    getOffsets(e.target)
+    const offsets = getOffsets(e.target)
     
     const modalPosition = {
         modal: {},
